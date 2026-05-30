@@ -6,12 +6,16 @@ namespace MvcCv
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var session = filterContext.HttpContext.Session["KullaniciAdi"];
+            var session = filterContext.HttpContext.Session;
             var controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
 
-            if (session == null && controller != "Login" && controller != "Default")
+            if (controller != "Login" && controller != "Default")
             {
-                filterContext.Result = new RedirectResult("/Login/Index");
+                if (session["KullaniciAdi"] == null)
+                {
+                    filterContext.Result = new RedirectResult("/Login/Index");
+                    return;
+                }
             }
 
             base.OnActionExecuting(filterContext);
