@@ -1,0 +1,54 @@
+﻿@using MvcCv.Models.Entity
+@model TblHobilerim
+@{
+    ViewBag.Title = "Hobi Düzenleme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4>Hobi Düzenleme Sayfası</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" name="ID" value="@Model.ID" />
+                    <div class="form-group">
+                        <label>Açıklama 1</label>
+                        <textarea rows="5" class="form-control" name="Aciklama1" required minlength="3" maxlength="500">@Model.Aciklama1</textarea>
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Açıklama 2</label>
+                        <textarea rows="5" class="form-control" name="Aciklama2" required minlength="3" maxlength="500">@Model.Aciklama2</textarea>
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Güncelle
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btnIptal">← İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        var originalValues = {};
+        document.querySelectorAll('input, textarea').forEach(function (el) {
+            if (el.name) originalValues[el.name] = el.value;
+        });
+
+        document.getElementById('btnIptal').addEventListener('click', function () {
+            document.querySelectorAll('input, textarea').forEach(function (el) {
+                if (el.name && originalValues[el.name] !== undefined) {
+                    el.value = originalValues[el.name];
+                }
+            });
+        });
+    </script>
+}

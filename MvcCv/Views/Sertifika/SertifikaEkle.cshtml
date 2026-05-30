@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "SertifikaEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<h4>Yeni Sertifika Ekleme Sayfası</h4>
+<br />
+
+<form class="form-group" method="post">
+
+    <input type="text" name="Aciklama" class="form-control" placeholder="Sertifika Adını Yazınız..." required minlength="3"
+           maxlength="250" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+
+    <input type="text" name="Tarih" class="form-control" placeholder="Tarihi Yazınız..." required minlength="4"
+           maxlength="40" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+
+    <input type="text" name="Görsel" class="form-control" placeholder="Görsel Adresini Yazınız..." required minlength="4"
+           maxlength="1000" />
+    <br />
+    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Kaydet</button>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">← İptal</button>
+</form>

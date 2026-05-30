@@ -1,0 +1,70 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<MvcCv.Models.Entity.Tbliletisim>
+@{
+    ViewBag.Title = "İletişim Mesajları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4>İletişim Mesajları</h4>
+            </div>
+            <div class="card-body">
+                <div class="timeline timeline-inverse">
+                    @foreach (var x in Model)
+                    {
+                        <div class="time-label">
+                            <span class="bg-blue">@(x.Tarih?.ToString("dd.MM.yyyy") ?? "")</span>
+                        </div>
+
+                        <div>
+                            <i class="fas fa-comments bg-warning"></i>
+                            <div class="timeline-item">
+                                <span class="time">
+                                    <i class="far fa-clock"></i>
+                                    @{
+                                        var fark = DateTime.Now - (x.Tarih ?? DateTime.Now);
+                                        string zamanFarki;
+                                        if (fark.TotalMinutes < 1) { zamanFarki = "Az önce"; }
+                                        else if (fark.TotalMinutes < 60) { zamanFarki = (int)fark.TotalMinutes + " dakika önce"; }
+                                        else if (fark.TotalHours < 24) { zamanFarki = (int)fark.TotalHours + " saat önce"; }
+                                        else if (fark.TotalDays < 30) { zamanFarki = (int)fark.TotalDays + " gün önce"; }
+                                        else if (fark.TotalDays < 365) { zamanFarki = (int)(fark.TotalDays / 30) + " ay önce"; }
+                                        else { zamanFarki = (int)(fark.TotalDays / 365) + " yıl önce"; }
+                                    }
+                                    @zamanFarki
+                                </span>
+
+                                <h3 class="timeline-header"><a href="#">@x.AdSoyad</a> — @x.Konu</h3>
+
+                                <div class="timeline-body">
+                                    @x.Mesaj
+                                </div>
+
+                                <div class="timeline-footer">
+                                    <span class="text-muted"><i class="fas fa-envelope"></i> @x.Mail</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="pagination-wrapper mt-4 d-flex justify-content-center">
+                    @Html.PagedListPager(Model,
+                                  page => Url.Action("Index", new { page }),
+                                  new PagedList.Mvc.PagedListRenderOptions
+                                  {
+                                      DisplayLinkToIndividualPages = true,
+                                      DisplayPageCountAndCurrentLocation = false,
+                                      UlElementClasses = new[] { "pagination m-0" },
+                                      LiElementClasses = new[] { "page-item" }
+                                  })
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

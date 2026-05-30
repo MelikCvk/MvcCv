@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "EgitimEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<h4>Yeni Eğitim Ekleme Sayfası</h4>
+<br />
+
+<form class="form-group" method="post">
+    <input type="text" name="Baslik" class="form-control" placeholder="Üniversite Yazınız..." required minlength="3" , maxlength="100" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <input type="text" name="AltBaslik1" class="form-control" placeholder="Derece Yazınız..." required minlength="4" maxlength="100" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <input type="text" name="AltBaslik2" class="form-control" placeholder="Bölüm Yazınız..." required minlength="3" maxlength="100" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <input type="text" name="GNO" class="form-control" placeholder="GNO Yazınız..." required minlength="1" maxlength="10" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <input type="text" name="Tarih" class="form-control" placeholder="Tarihi Yazınız..." required minlength="4" maxlength="50" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Kaydet</button>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">← İptal</button>
+</form>
+

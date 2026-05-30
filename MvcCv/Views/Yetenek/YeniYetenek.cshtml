@@ -1,0 +1,31 @@
+﻿@model MvcCv.Models.Entity.TblYeteneklerim
+@{
+    ViewBag.Title = "YeniYetenek";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<h4>Yeni Yetenek Ekleme Sayfası</h4>
+<br />
+
+<form method="post" id="yetenekForm">
+
+    @Html.HiddenFor(x => x.ID)
+
+    <div class="form-group">
+        @Html.Label("Yetenek Açıklaması")
+        @Html.TextBoxFor(x => x.Yetenek, new { @class = "form-control", placeholder = "Örn: C#, MVC, AI...", required = "required", minlength = "1", maxlength = "50" })
+        <div class="invalid-feedback">Bu alan zorunludur.</div>
+    </div>
+    <br />
+
+    <div class="form-group">
+        @Html.Label("Derece (%)")
+        @Html.TextBoxFor(x => x.Oran, new { @class = "form-control", type = "number", min = "0", max = "100", required = "required" })
+        <div class="invalid-feedback">Bu alan zorunludur.</div>
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Kaydet</button>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">← İptal</button>
+</form>

@@ -1,0 +1,71 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<MvcCv.Models.Entity.TblDeneyimlerim>
+@{
+    ViewBag.Title = "Deneyim Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4>Deneyim Listesi</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Başlık</th>
+                            <th>Alt Başlık</th>
+                            <th>Açıklama</th>
+                            <th>Tarih</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="background-color: #f8f9fa; color: #000;">@item.ID</td>
+                                <td>@item.Baslik</td>
+                                <td>@item.AltBaslik</td>
+                                <td>@item.Aciklama.Substring(0, Math.Min(50, item.Aciklama.Length))...</td>
+                                <td>@item.Tarih</td>
+                                <td class="text-center">
+                                    <a class="btn btn-info btn-sm" href="/Deneyim/DeneyimGetir/@item.ID">
+                                        <i class="fas fa-pencil-alt"></i> Düzenle
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a class="btn btn-danger btn-sm" href="/Deneyim/DeneyimSil/@item.ID"
+                                       onclick="silOnay(event, this); return false;">
+                                        <i class="fas fa-trash"></i> Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="pagination-wrapper mt-3">
+                    @Html.PagedListPager(Model,
+                        page => Url.Action("Index", new { page }),
+                        new PagedList.Mvc.PagedListRenderOptions
+                        {
+                            DisplayLinkToIndividualPages = true,
+                            DisplayPageCountAndCurrentLocation = false,
+                            UlElementClasses = new[] { "pagination" },
+                            LiElementClasses = new[] { "page-item" },
+                        })
+                </div>
+
+                <a href="/Deneyim/DeneyimEkle" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Yeni Deneyim Ekle
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

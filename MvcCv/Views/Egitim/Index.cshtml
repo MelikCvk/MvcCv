@@ -1,0 +1,60 @@
+﻿@using MvcCv.Models.Entity
+@model IEnumerable<TblEgitimlerim>
+@{
+    ViewBag.Title = "Eğitim Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4>Eğitim Listesi</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Başlık</th>
+                            <th>Alt Başlık</th>
+                            <th>Alt Başlık 2</th>
+                            <th>GNO</th>
+                            <th>Tarih</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="background-color: #f8f9fa; color: #000;">@item.ID</td>
+                                <td>@item.Baslik</td>
+                                <td>@item.AltBaslik1</td>
+                                <td>@item.AltBaslik2</td>
+                                <td>@item.GNO</td>
+                                <td>@item.Tarih</td>
+                                <td class="text-center">
+                                    <a class="btn btn-info btn-sm" href="/Egitim/EgitimGetir/@item.ID">
+                                        <i class="fas fa-pencil-alt"></i> Düzenle
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a class="btn btn-danger btn-sm" href="/Egitim/EgitimSil/@item.ID"
+                                       onclick="silOnay(event, this); return false;">
+                                        <i class="fas fa-trash"></i> Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <a href="/Egitim/EgitimEkle" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Yeni Eğitim Ekle
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

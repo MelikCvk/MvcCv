@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "DeneyimEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h4>Yeni Deneyim Ekleme Sayfası</h4>
+<br />
+
+<form class="form-group" method="post">
+    <input type="text" name="Baslik" class="form-control" placeholder="Başlığı Yazınız..." required minlength="3"
+           maxlength="50" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <input type="text" name="AltBaslik" class="form-control" placeholder="Alt Başlığı Yazınız..." required minlength="3"
+           maxlength="60" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <input type="text" name="Tarih" class="form-control" placeholder="Tarihi Yazınız..." required minlength="4"
+           maxlength="40" />
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <textarea name="Aciklama" class="form-control" placeholder="Açıklamayı Yazınız..." required inlength="10"
+              maxlength="2500"></textarea>
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Kaydet</button>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">← İptal</button>
+</form>

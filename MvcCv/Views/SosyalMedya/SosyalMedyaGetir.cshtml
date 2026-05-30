@@ -1,0 +1,41 @@
+﻿@model MvcCv.Models.Entity.TblSosyalMedya
+@{
+    ViewBag.Title = "Sosyal Medya Düzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4>Sosyal Medya Hesabı Düzenleme</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    @Html.HiddenFor(x => x.ID)
+
+                    <div class="form-group">
+                        @Html.Label("Hesap Adı")
+                        @Html.TextBoxFor(x => x.Ad, new { @class = "form-control", placeholder = "Örn: LinkedIn, GitHub...", required = "required", minlength = "1", maxlength = "30" })
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        @Html.Label("Link")
+                        @Html.TextBoxFor(x => x.Link, new { @class = "form-control", placeholder = "Örn: https://github.com/...", required = "required", minlength = "1", maxlength = "200" })
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        @Html.Label("İkon")
+                        @Html.TextBoxFor(x => x.ikon, new { @class = "form-control", placeholder = "Örn: fab fa-github", required = "required", minlength = "1", maxlength = "30" })
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Güncelle</button>
+                    <button type="button" class="btn btn-secondary" onclick="history.back()">← İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

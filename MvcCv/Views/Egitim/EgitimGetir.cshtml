@@ -1,0 +1,37 @@
+﻿@model MvcCv.Models.Entity.TblEgitimlerim
+
+@{
+    ViewBag.Title = "EgitimGetir";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h4>Eğitim Güncelleme Sayfası</h4>
+<br />
+
+<form method="post">
+    @Html.Label("ID")
+    @Html.TextBoxFor(x => x.ID, new { @class = "form-control", @readonly = "readonly" })
+    <br />
+    @Html.Label("Başlık")
+    @Html.TextBoxFor(x => x.Baslik, new { @class = "form-control", required = "required", minlength = "3", maxlength = "100" })
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    @Html.Label("Alt Başlık")
+    @Html.TextBoxFor(x => x.AltBaslik1, new { @class = "form-control", required = "required", minlength = "4", maxlength = "100" })
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    @Html.Label("Alt Başlık 2")
+    @Html.TextBoxFor(x => x.AltBaslik2, new { @class = "form-control", required = "required", minlength = "3", maxlength = "100" })
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    @Html.Label("GNO")
+    @Html.TextBoxFor(x => x.GNO, new { @class = "form-control", required = "required", minlength = "1", maxlength = "10" })
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    @Html.Label("Tarih")
+    @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", required = "required", minlength = "4", maxlength = "50" })
+    <div class="invalid-feedback">Bu alan zorunludur.</div>
+    <br />
+    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Güncelle</button>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">← İptal</button>
+</form>

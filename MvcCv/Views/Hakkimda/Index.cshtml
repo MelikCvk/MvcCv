@@ -1,0 +1,84 @@
+﻿@using MvcCv.Models.Entity
+@model TblHakkimda
+@{
+    ViewBag.Title = "Hakkımda Düzenleme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4>Hakkımda Düzenleme Sayfası</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" name="ID" value="@Model.ID" />
+
+                    <div class="form-group">
+                        <label>Ad</label>
+                        <input type="text" name="Ad" value="@Model.Ad" class="form-control" required maxlength="50" />
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Soyad</label>
+                        <input type="text" name="Soyad" value="@Model.Soyad" class="form-control" required maxlength="50" />
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Adres</label>
+                        <input type="text" name="Adres" value="@Model.Adres" class="form-control" required maxlength="200" />
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Telefon</label>
+                        <input type="text" name="Telefon" value="@Model.Telefon" class="form-control" required maxlength="20" />
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Mail</label>
+                        <input type="email" name="Mail" value="@Model.Mail" class="form-control" required maxlength="100" />
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        <textarea name="Aciklama" class="form-control" rows="5" required maxlength="1000">@Model.Aciklama</textarea>
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Görsel</label>
+                        <input type="text" name="Görsel" value="@Model.Görsel" class="form-control" maxlength="500" />
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Güncelle
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btnIptal">← İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        var originalValues = {};
+        document.querySelectorAll('input, textarea').forEach(function (el) {
+            if (el.name) originalValues[el.name] = el.value;
+        });
+
+        document.getElementById('btnIptal').addEventListener('click', function () {
+            document.querySelectorAll('input, textarea').forEach(function (el) {
+                if (el.name && originalValues[el.name] !== undefined) {
+                    el.value = originalValues[el.name];
+                }
+            });
+        });
+    </script>
+}

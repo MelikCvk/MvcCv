@@ -1,0 +1,28 @@
+﻿@model MvcCv.Models.Entity.TblSertifikalarim
+
+@{
+    ViewBag.Title = "SertifikaGetir";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<h4>Sertifika Güncelleme Sayfası</h4>
+<br />
+
+<form method="post">
+    @Html.Label("ID")
+    @Html.TextBoxFor(x => x.ID, new { @class = "form-control", @readonly = "readonly" })
+    <br />
+    @Html.Label("Açıklama")
+    @Html.TextBoxFor(x => x.Aciklama, new { @class = "form-control", required = "required", minlength = "3", maxlength = "250" })
+    <br />
+    @Html.Label("Tarih")
+    @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", required = "required", minlength = "4", maxlength = "40" })
+    <br />
+    @Html.Label("Görsel")
+    @Html.TextBoxFor(x => x.Görsel, new { @class = "form-control", required = "required", minlength = "4", maxlength = "1000" })
+    <br />
+    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Güncelle</button>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">← İptal</button>
+</form>
+
