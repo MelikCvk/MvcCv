@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MvcCv.Controllers
 {
+    
     public class HakkimdaController : Controller
     {
         // GET: Hakkimda

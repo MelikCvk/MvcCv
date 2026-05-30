@@ -12,6 +12,7 @@ namespace MvcCv
     {
         protected void Application_Start()
         {
+            GlobalFilters.Filters.Add(new SessionCheckAttribute());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

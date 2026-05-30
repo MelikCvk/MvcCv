@@ -5,19 +5,23 @@
     ViewBag.Title = "İletişim Mesajları";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+@{
+    var renkler = new[] { "bg-primary", "bg-danger", "bg-warning", "bg-info", "bg-dark", "bg-purple" };
+    var random = new Random();
+}
 <section class="content">
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h4>İletişim Mesajları</h4>
+                <h4 class="card-title" style="font-size: 22px; font-weight: 600; color: #333;">İletişim Mesajları</h4>
             </div>
             <div class="card-body">
                 <div class="timeline timeline-inverse">
                     @foreach (var x in Model)
                     {
+                        var renk = renkler[random.Next(renkler.Length)];
                         <div class="time-label">
-                            <span class="bg-blue">@(x.Tarih?.ToString("dd.MM.yyyy") ?? "")</span>
+                            <span class="@renk">@(x.Tarih.HasValue ? x.Tarih.Value.ToString("dd.MM.yyyy") : "-")</span>
                         </div>
 
                         <div>
@@ -54,14 +58,14 @@
 
                 <div class="pagination-wrapper mt-4 d-flex justify-content-center">
                     @Html.PagedListPager(Model,
-                                  page => Url.Action("Index", new { page }),
-                                  new PagedList.Mvc.PagedListRenderOptions
-                                  {
-                                      DisplayLinkToIndividualPages = true,
-                                      DisplayPageCountAndCurrentLocation = false,
-                                      UlElementClasses = new[] { "pagination m-0" },
-                                      LiElementClasses = new[] { "page-item" }
-                                  })
+                                                      page => Url.Action("Index", new { page }),
+                                                      new PagedList.Mvc.PagedListRenderOptions
+                                                      {
+                                                          DisplayLinkToIndividualPages = true,
+                                                          DisplayPageCountAndCurrentLocation = false,
+                                                          UlElementClasses = new[] { "pagination m-0" },
+                                                          LiElementClasses = new[] { "page-item" }
+                                                      })
                 </div>
 
             </div>

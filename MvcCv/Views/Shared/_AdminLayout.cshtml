@@ -62,71 +62,59 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
-                        <li class="nav-item has-treeview">
+                        with font-awesome or any other icon font library -->
+                        <li class="nav-item">
                             <a href="/Hakkimda/Index/" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Hakkımda
-                                </p>
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>Hakkımda</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Egitim/Index/" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Eğitimlerim
-                                </p>
+                                <i class="nav-icon fas fa-graduation-cap"></i>
+                                <p>Eğitimlerim</p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
+                        <li class="nav-item">
                             <a href="/Deneyim/Index/" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    Deneyimlerim
-                                </p>
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>Deneyimlerim</p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
+                        <li class="nav-item">
                             <a href="/Hobi/Index/" class="nav-link">
-                                <i class="nav-icon fas fa-chart-pie"></i>
-                                <p>
-                                    Hobilerim
-                                </p>
+                                <i class="nav-icon fas fa-heart"></i>
+                                <p>Hobilerim</p>
                             </a>
                         </li>
-
-
                         <li class="nav-item">
                             <a href="/Yetenek/Index/" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
-                                <p>
-                                    Yeteneklerim
-                                </p>
+                                <i class="nav-icon fas fa-star"></i>
+                                <p>Yeteneklerim</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Sertifika/Index/" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
-                                <p>
-                                    Sertifikalarım
-                                </p>
+                                <i class="nav-icon fas fa-certificate"></i>
+                                <p>Sertifikalarım</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/iletisim/Index/" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
-                                <p>
-                                    İletişim
-                                </p>
+                                <i class="nav-icon fas fa-envelope"></i>
+                                <p>İletişim</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/SosyalMedya/Index/" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
-                                <p>
-                                    Sosyal Medya
-                                </p>
+                                <i class="nav-icon fas fa-share-alt"></i>
+                                <p>Sosyal Medya</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Login/LogOut/" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>Çıkış Yap</p>
                             </a>
                         </li>
                     </ul>
@@ -178,6 +166,23 @@
                 confirmButtonText: 'Evet, Sil',
                 cancelButtonText: 'İptal',
                 confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = el.href;
+                }
+            });
+        }
+        function pasifOnay(e, el) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: 'Bu hesap pasif yapılacak!',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Evet, Pasif Yap',
+                cancelButtonText: 'İptal',
+                confirmButtonColor: '#f39c12',
                 cancelButtonColor: '#6c757d'
             }).then((result) => {
                 if (result.isConfirmed) {

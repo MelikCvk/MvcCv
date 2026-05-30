@@ -32,7 +32,8 @@ namespace MvcCv.Controllers
         public ActionResult SosyalMedyaSil(int id)
         {
             TblSosyalMedya so = repo.Find(x => x.ID == id);
-            repo.TDelete(so);
+            so.Durum = false;
+            repo.TUpdate(so);
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -52,6 +53,7 @@ namespace MvcCv.Controllers
             sosyalMedya.Ad = se.Ad;
             sosyalMedya.Link = se.Link;
             sosyalMedya.ikon = se.ikon;
+            sosyalMedya.Durum = true;
             repo.TUpdate(sosyalMedya);
             return RedirectToAction("Index");
         }

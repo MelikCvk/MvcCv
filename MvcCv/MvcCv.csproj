@@ -138,12 +138,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SessionCheckAttribute.cs" />
+    <Compile Include="Controllers\deffe.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DeneyimController.cs" />
     <Compile Include="Controllers\EgitimController.cs" />
     <Compile Include="Controllers\HakkimdaController.cs" />
     <Compile Include="Controllers\HobiController.cs" />
     <Compile Include="Controllers\iletisimController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MvcCvEntities.cs" />
     <Compile Include="Controllers\SertifikaController.cs" />
     <Compile Include="Controllers\SosyalMedyaController.cs" />
@@ -2506,9 +2509,11 @@
     <Content Include="Views\SosyalMedya\YeniSosyalMedya.cshtml" />
     <Content Include="Views\SosyalMedya\SosyalMedyaGetir.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
