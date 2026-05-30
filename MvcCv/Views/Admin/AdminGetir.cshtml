@@ -1,0 +1,26 @@
+﻿@model MvcCv.Models.Entity.TblAdmin
+
+@{
+    ViewBag.Title = "AdminGetir";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<h4>Admin Güncelleme Sayfası</h4>
+<br />
+
+<form method="post">
+
+    @Html.Label("ID")
+    @Html.TextBoxFor(x => x.ID, new { @class = "form-control", @readonly = "readonly" })
+    <br />
+    @Html.Label("Başlık")
+    @Html.TextBoxFor(x => x.KullaniciAdi, new { @class = "form-control", required = "required", minlength = "5", maxlength = "50" })
+    <br />
+    @Html.Label("Alt Başlık")
+    @Html.TextBoxFor(x => x.Sifre, new { @class = "form-control", required = "required", minlength = "8", maxlength = "50" })
+    <br />
+    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Güncelle</button>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">← İptal</button>
+</form>
+

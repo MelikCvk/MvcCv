@@ -47,6 +47,11 @@ namespace MvcCv.Controllers
             var dger = db.TblSertifikalarim.ToList();
             return PartialView(dger);
         }
+        public PartialViewResult Projeler()
+        {
+            var projeler = db.TblProjelerim.ToList();
+            return PartialView(projeler);
+        }
         [HttpGet]
         public PartialViewResult Iletisim()
         {

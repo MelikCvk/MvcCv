@@ -1,0 +1,86 @@
+﻿
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<MvcCv.Models.Entity.TblProjelerim>
+@{
+    ViewBag.Title = "Proje Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" style="font-size: 22px; font-weight: 600; color: #333;">Proje Listesi</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 10px;">ID</th>
+                            <th>Başlık</th>
+                            <th>Açıklama</th>
+                            <th>Teknolojiler</th>
+                            <th>GitHub</th>
+                            <th>Demo</th>
+                            <th>Tarih</th>
+                            <th class="text-center">Düzenle</th>
+                            <th class="text-center">Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="background-color: #f8f9fa; color: #000;">@item.ID</td>
+                                <td>@item.Baslik</td>
+                                <td>@item.Aciklama</td>
+                                <td>@item.Teknolojiler</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.GitHubLink))
+                                    {
+                                        <a href="@item.GitHubLink" target="_blank"><i class="fab fa-github"></i></a>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.DemoLink))
+                                    {
+                                        <a href="@item.DemoLink" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                                    }
+                                </td>
+                                <td>@item.Tarih</td>
+                                <td class="text-center">
+                                    <a class="btn btn-info btn-sm" href="/Proje/ProjeGetir/@item.ID">
+                                        <i class="fas fa-pencil-alt"></i> Düzenle
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a class="btn btn-danger btn-sm" href="/Proje/ProjeSil/@item.ID"
+                                       onclick="silOnay(event, this); return false;">
+                                        <i class="fas fa-trash"></i> Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="pagination-wrapper mt-3">
+                    @Html.PagedListPager(Model,
+                        page => Url.Action("Index", new { page }),
+                        new PagedList.Mvc.PagedListRenderOptions
+                        {
+                            DisplayLinkToIndividualPages = true,
+                            DisplayPageCountAndCurrentLocation = false,
+                            UlElementClasses = new[] { "pagination" },
+                            LiElementClasses = new[] { "page-item" },
+                        })
+                </div>
+                <br />
+                <a href="/Proje/ProjeEkle" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Yeni Proje Ekle
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

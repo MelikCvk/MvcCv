@@ -1,0 +1,61 @@
+﻿@model MvcCv.Models.Entity.TblProjelerim
+@{
+    ViewBag.Title = "Proje Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4>Yeni Proje Ekleme Sayfası</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" id="projeForm">
+                    <div class="form-group">
+                        <label>Başlık</label>
+                        <input type="text" name="Baslik" class="form-control" placeholder="Proje adı..." required minlength="3" maxlength="100" />
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        <textarea name="Aciklama" class="form-control" rows="4" placeholder="Proje açıklaması..." required minlength="10" maxlength="500"></textarea>
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Teknolojiler</label>
+                        <input type="text" name="Teknolojiler" class="form-control" placeholder="Örn: C#, ASP.NET MVC, SQL..." required minlength="3" maxlength="200" />
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>GitHub Link</label>
+                        <input type="text" name="GitHubLink" class="form-control" placeholder="https://github.com/..." maxlength="200" />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Demo Link</label>
+                        <input type="text" name="DemoLink" class="form-control" placeholder="https://..." maxlength="200" />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Görsel URL</label>
+                        <input type="text" name="Gorsel" class="form-control" placeholder="https://..." maxlength="500" />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Tarih</label>
+                        <input type="text" name="Tarih" class="form-control" placeholder="Örn: 2025 - 2026" maxlength="30" />
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Proje Ekle
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="history.back()">← İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

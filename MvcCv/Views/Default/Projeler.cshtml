@@ -1,0 +1,37 @@
+﻿@using MvcCv.Models.Entity
+@model List<TblProjelerim>
+
+<div class="resume-section-content">
+    <h2 class="mb-5">Projelerim</h2>
+    @foreach (var x in Model)
+    {
+        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">@x.Baslik</h3>
+                <div class="subheading mb-3">@x.Teknolojiler</div>
+                @if (!string.IsNullOrEmpty(x.Gorsel))
+                {
+                    <img src="@x.Gorsel" alt="@x.Baslik" style="width:100%; max-width:500px; border-radius:8px; margin-bottom:15px;" />
+                }
+                <p>@x.Aciklama</p>
+                <div>
+                    @if (!string.IsNullOrEmpty(x.GitHubLink))
+                    {
+                        <a href="@x.GitHubLink" target="_blank" class="btn btn-dark btn-sm">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(x.DemoLink))
+                    {
+                        <a href="@x.DemoLink" target="_blank" class="btn btn-primary btn-sm">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="flex-shrink-0">
+                <span class="text-primary">@x.Tarih</span>
+            </div>
+        </div>
+    }
+</div>

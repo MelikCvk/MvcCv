@@ -1,0 +1,80 @@
+﻿@model MvcCv.Models.Entity.TblProjelerim
+@{
+    ViewBag.Title = "Proje Düzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4>Proje Güncelleme Sayfası</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    @Html.HiddenFor(x => x.ID)
+
+                    <div class="form-group">
+                        <label>Başlık</label>
+                        @Html.TextBoxFor(x => x.Baslik, new { @class = "form-control", placeholder = "Proje adı...", required = "required", minlength = "3", maxlength = "100" })
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control", rows = "4", placeholder = "Proje açıklaması...", required = "required", minlength = "10", maxlength = "500" })
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Teknolojiler</label>
+                        @Html.TextBoxFor(x => x.Teknolojiler, new { @class = "form-control", placeholder = "Örn: C#, ASP.NET MVC, SQL...", required = "required", minlength = "3", maxlength = "200" })
+                        <div class="invalid-feedback">Bu alan zorunludur.</div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>GitHub Link</label>
+                        @Html.TextBoxFor(x => x.GitHubLink, new { @class = "form-control", placeholder = "https://github.com/...", maxlength = "200" })
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Demo Link</label>
+                        @Html.TextBoxFor(x => x.DemoLink, new { @class = "form-control", placeholder = "https://...", maxlength = "200" })
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Görsel URL</label>
+                        @Html.TextBoxFor(x => x.Gorsel, new { @class = "form-control", placeholder = "https://...", maxlength = "500" })
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label>Tarih</label>
+                        @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", placeholder = "Örn: 2025 - 2026", maxlength = "30" })
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Güncelle
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btnIptal">← İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        var originalValues = {};
+        document.querySelectorAll('input, textarea').forEach(function (el) {
+            if (el.name) originalValues[el.name] = el.value;
+        });
+
+        document.getElementById('btnIptal').addEventListener('click', function () {
+            document.querySelectorAll('input, textarea').forEach(function (el) {
+                if (el.name && originalValues[el.name] !== undefined) {
+                    el.value = originalValues[el.name];
+                }
+            });
+        });
+    </script>
+}
