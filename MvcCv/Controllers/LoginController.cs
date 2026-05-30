@@ -13,6 +13,8 @@ namespace MvcCv.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (Session["KullaniciAdi"] != null)
+                return RedirectToAction("Index", "Hakkimda");
             return View();
         }
         [HttpPost]
@@ -33,6 +35,7 @@ namespace MvcCv.Controllers
         }
         public ActionResult Logout()
         {
+            Session.Abandon();
             Session.Clear();
             return RedirectToAction("Index", "Login");
         } 

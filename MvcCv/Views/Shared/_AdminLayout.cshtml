@@ -1,8 +1,6 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
-
 
 <!DOCTYPE html>
 <html>
@@ -10,16 +8,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 3 | Project Add</title>
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- overlayScrollbars -->
     <link rel="stylesheet" href="~/AdminLTE-3.0.4/dist/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -33,11 +25,8 @@
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
-    <!-- Site wrapper -->
     <div class="wrapper">
-        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
             <a href="/Default/Index/" class="brand-link">
                 <img src="/startbootstrap-resume-gh-pages/assets/img/favicon.ico"
                      alt="AdminLTE Logo"
@@ -45,10 +34,7 @@
                      style="opacity: .8">
                 <span class="brand-text font-weight-light">Siteye Git</span>
             </a>
-
-            <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="/startbootstrap-resume-gh-pages/assets/img/profile.PNG" class="img-circle elevation-2" alt="User Image">
@@ -57,12 +43,8 @@
                         <a class="d-block">Admin Paneli</a>
                     </div>
                 </div>
-
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="/Hakkimda/Index/" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
@@ -119,14 +101,9 @@
                         </li>
                     </ul>
                 </nav>
-                <!-- /.sidebar-menu -->
             </div>
-            <!-- /.sidebar -->
         </aside>
-
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Main content -->
             <section class="content">
                 <div class="row">
                     <div class="col-md-12">
@@ -134,17 +111,11 @@
                     </div>
                 </div>
             </section>
-            <!-- /.content -->
         </div>
     </div>
-    <!-- ./wrapper -->
-    <!-- jQuery -->
     <script src="/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
     <script src="/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
     <script src="/AdminLTE-3.0.4/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
     <script src="/AdminLTE-3.0.4/dist/js/demo.js"></script>
     <script>
         document.addEventListener('submit', function (e) {
@@ -190,6 +161,45 @@
                 }
             });
         }
+    </script>
+    <script>
+        var uyariSuresi = 9 * 60 * 1000;
+        var oturumSuresi = 10 * 60 * 1000;
+        var uyariTimer, oturumTimer;
+
+        function timerlariBaşlat() {
+            clearTimeout(uyariTimer);
+            clearTimeout(oturumTimer);
+
+            uyariTimer = setTimeout(function () {
+                Swal.fire({
+                    title: 'Oturum Uyarısı',
+                    text: 'Oturumunuz 1 dakika içinde kapanacak. Devam etmek istiyor musunuz?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Evet, Devam Et',
+                    cancelButtonText: 'Çıkış Yap',
+                    confirmButtonColor: '#28a745',
+                    cancelButtonColor: '#d33'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        timerlariBaşlat();
+                    } else {
+                        window.location.href = '/Login/LogOut';
+                    }
+                });
+            }, uyariSuresi);
+
+            oturumTimer = setTimeout(function () {
+                window.location.href = '/Login/LogOut';
+            }, oturumSuresi);
+        }
+
+        document.addEventListener('mousemove', timerlariBaşlat);
+        document.addEventListener('keypress', timerlariBaşlat);
+        document.addEventListener('click', timerlariBaşlat);
+
+        timerlariBaşlat();
     </script>
     @RenderSection("Scripts", required: false)
 </body>

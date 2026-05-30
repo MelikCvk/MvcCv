@@ -139,7 +139,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SessionCheckAttribute.cs" />
-    <Compile Include="Controllers\deffe.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DeneyimController.cs" />
     <Compile Include="Controllers\EgitimController.cs" />
@@ -2513,7 +2512,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
