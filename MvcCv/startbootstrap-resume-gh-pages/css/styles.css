@@ -12564,4 +12564,10 @@ section.resume-section {
         padding-bottom: 5rem;
     }
 }
-
+@media (max-width: 991.98px) {
+    .img-profile {
+        width: 150px !important;
+        height: 150px !important;
+        object-fit: cover;
+    }
+}
