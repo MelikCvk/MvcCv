@@ -1,9 +1,10 @@
-﻿using System;
+﻿using MvcCv.Models.Entity;
+using SelectPdf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MvcCv.Models.Entity;
 namespace MvcCv.Controllers
 {
     [AllowAnonymous]
@@ -65,6 +66,44 @@ namespace MvcCv.Controllers
             db.Tbliletisim.Add(t);
             db.SaveChanges();
             return PartialView();
+        }
+        public ActionResult CvSayfa()
+        {
+            var model = db.TblHakkimda.FirstOrDefault();
+
+            ViewBag.Deneyimler = db.TblDeneyimlerim.ToList();
+            ViewBag.Egitimler = db.TblEgitimlerim.ToList();
+            ViewBag.Yetenekler = db.TblYeteneklerim.ToList();
+            ViewBag.Projeler = db.TblProjelerim.ToList();
+            ViewBag.Sertifikalar = db.TblSertifikalarim.ToList();
+            ViewBag.SosyalMedya = db.TblSosyalMedya.ToList();
+
+            return View(model);
+        }
+
+        public ActionResult CvIndir()
+        {
+            HtmlToPdf converter = new HtmlToPdf();
+
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            converter.Options.WebPageWidth = 794;
+
+            converter.Options.MarginTop = 0;
+            converter.Options.MarginBottom = 0;
+            converter.Options.MarginLeft = 0;
+            converter.Options.MarginRight = 0;
+
+            converter.Options.AutoFitWidth = HtmlToPdfPageFitMode.ShrinkOnly;
+            converter.Options.AutoFitHeight = HtmlToPdfPageFitMode.NoAdjustment;
+
+            string url = Url.Action("CvSayfa", "Default", null, Request.Url.Scheme);
+
+            PdfDocument doc = converter.ConvertUrl(url);
+            byte[] pdf = doc.Save();
+            doc.Close();
+
+            return File(pdf, "application/pdf", "MelikCevik-CV.pdf");
         }
     }
 }

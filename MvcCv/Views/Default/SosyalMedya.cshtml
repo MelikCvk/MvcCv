@@ -3,6 +3,17 @@
 
 @foreach (var x in Model)
 {
-        <a class="social-icon" href="@x.Link" target="_blank" rel="noopener noreferrer"><i class="@x.ikon"></i></a>
-    
+    <a class="social-icon"
+       href="@x.Link"
+       target="_blank"
+       rel="noopener noreferrer">
+        <i class="@x.ikon"></i>
+    </a>
 }
+
+<div style="margin-top:25px;">
+    <a href="/Default/CvIndir" class="cv-download-btn">
+        <i class="fas fa-file-pdf"></i>
+        CV İndir
+    </a>
+</div>

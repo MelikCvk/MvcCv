@@ -1,0 +1,729 @@
+﻿@using System
+@using System.Linq
+@using MvcCv.Models.Entity
+@model TblHakkimda
+@{
+    Layout = null;
+
+    var sosyalMedya = ViewBag.SosyalMedya as List<TblSosyalMedya>;
+    var yetenekler = ViewBag.Yetenekler as List<TblYeteneklerim>;
+    var egitimler = ViewBag.Egitimler as List<TblEgitimlerim>;
+    var sertifikalar = ViewBag.Sertifikalar as List<TblSertifikalarim>;
+    var deneyimler = ViewBag.Deneyimler as List<TblDeneyimlerim>;
+    var projeler = ViewBag.Projeler as List<TblProjelerim>;
+
+    Func<string, string> kullaniciAdiGetir = link =>
+    {
+        if (string.IsNullOrWhiteSpace(link))
+        {
+            return "";
+        }
+
+        var temiz = link
+            .Replace("https://", "")
+            .Replace("http://", "")
+            .Replace("www.", "")
+            .Trim()
+            .TrimEnd('/');
+
+        var parcalar = temiz.Split('/');
+        var sonParca = parcalar.LastOrDefault(x => !string.IsNullOrWhiteSpace(x));
+
+        if (string.IsNullOrWhiteSpace(sonParca))
+        {
+            return temiz;
+        }
+
+        return sonParca;
+    };
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 794px;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            font-family: Arial, sans-serif;
+            color: #171717;
+            font-size: 10px;
+        }
+
+        body {
+            overflow: visible;
+        }
+
+        .page {
+            width: 794px;
+            height: 1123px;
+            background: #fff;
+            overflow: hidden;
+            page-break-after: always;
+        }
+
+            .page:last-child {
+                page-break-after: auto;
+            }
+
+        .top-header {
+            height: 210px;
+            background: #f7f7f7;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid #df4b16;
+        }
+
+        .header-dark {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 210px;
+            height: 210px;
+            background: linear-gradient(135deg, #24272b, #111417);
+            clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%);
+            z-index: 1;
+        }
+
+        .header-orange {
+            position: absolute;
+            left: 150px;
+            top: -25px;
+            width: 90px;
+            height: 265px;
+            background: #df4b16;
+            transform: skewX(-17deg);
+            z-index: 2;
+        }
+
+        .profile-photo {
+            position: absolute;
+            left: 48px;
+            top: 42px;
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #df4b16;
+            background: #fff;
+            z-index: 4;
+        }
+
+        .header-content {
+            position: absolute;
+            left: 255px;
+            top: 23px;
+            right: 28px;
+            z-index: 5;
+        }
+
+        .name {
+            font-size: 39px;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: #20242a;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+            .name span {
+                color: #df4b16;
+            }
+
+        .role {
+            font-size: 12px;
+            letter-spacing: 4px;
+            color: #777;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 13px;
+            border-bottom: 1px solid #d6d6d6;
+            margin-bottom: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .info-icon {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            border-radius: 50%;
+            background: #df4b16;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+        }
+
+        .info-text {
+            line-height: 1.25;
+            font-size: 9px;
+            color: #222;
+            white-space: nowrap;
+        }
+
+            .info-text strong {
+                display: block;
+                font-size: 9.4px;
+                color: #111;
+            }
+
+        .social-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        .social-card {
+            width: 82px;
+            text-align: center;
+        }
+
+        .social-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 8px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 2px;
+        }
+
+            .social-top i {
+                width: 15px;
+                height: 15px;
+                min-width: 15px;
+                border-radius: 50%;
+                background: #20242a;
+                color: #fff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 7px;
+            }
+
+        .social-link {
+            font-size: 6px;
+            color: #666;
+            line-height: 1.15;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .content {
+            display: flex;
+            height: 913px;
+        }
+
+        .left {
+            width: 33%;
+            background: #fbf3ef;
+            padding: 24px 22px;
+            border-right: 1px solid #eadbd3;
+        }
+
+        .right {
+            width: 67%;
+            padding: 24px 32px;
+        }
+
+        .section {
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+            .section-title .circle {
+                width: 16px;
+                height: 16px;
+                min-width: 16px;
+                border-radius: 50%;
+                background: #df4b16;
+                color: #fff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 7px;
+            }
+
+        .skill {
+            margin-bottom: 7px;
+        }
+
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9.3px;
+            margin-bottom: 3px;
+        }
+
+        .bar {
+            height: 4px;
+            background: #d8d8d8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 4px;
+            background: #df4b16;
+        }
+
+        .timeline {
+            border-left: 1px dotted #df4b16;
+            margin-left: 10px;
+            padding-left: 19px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 12px;
+            page-break-inside: avoid;
+        }
+
+            .timeline-item:before {
+                content: "";
+                position: absolute;
+                left: -24px;
+                top: 4px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #df4b16;
+            }
+
+        .exp-item {
+            position: relative;
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+        }
+
+            .exp-item:before {
+                content: "";
+                position: absolute;
+                left: -25px;
+                top: 5px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                border: 2px solid #df4b16;
+                background: #fff;
+            }
+
+        h3 {
+            font-size: 11.5px;
+            color: #111;
+            margin-bottom: 2px;
+        }
+
+        .sub {
+            color: #df4b16;
+            font-size: 9.2px;
+            margin-bottom: 3px;
+        }
+
+        .date {
+            color: #333;
+            font-size: 8.5px;
+            white-space: nowrap;
+        }
+
+        .text {
+            font-size: 9.7px;
+            line-height: 1.45;
+            color: #222;
+        }
+
+        .head-line {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .bullet {
+            font-size: 9.1px;
+            line-height: 1.34;
+            margin-bottom: 2px;
+            color: #222;
+        }
+
+        .mini-header {
+            height: 82px;
+            background: #f7f7f7;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid #df4b16;
+        }
+
+        .mini-dark {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 215px;
+            height: 82px;
+            background: #20242a;
+            clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+        }
+
+        .mini-orange {
+            position: absolute;
+            left: 174px;
+            top: -10px;
+            width: 45px;
+            height: 105px;
+            background: #df4b16;
+            transform: skewX(-18deg);
+        }
+
+        .mini-title {
+            position: absolute;
+            left: 38px;
+            top: 27px;
+            color: #fff;
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+            .mini-title span {
+                color: #df4b16;
+            }
+
+        .mini-sub {
+            position: absolute;
+            right: 38px;
+            top: 33px;
+            color: #333;
+            font-size: 11px;
+        }
+
+        .second-content {
+            padding: 26px 38px;
+        }
+
+        .project {
+            margin-bottom: 18px;
+            page-break-inside: avoid;
+        }
+
+        .project-link {
+            font-size: 8.8px;
+            color: #df4b16;
+            margin-top: 3px;
+            word-break: break-all;
+        }
+
+        .cert-grid {
+            column-count: 2;
+            column-gap: 32px;
+        }
+
+        .cert {
+            font-size: 8.8px;
+            line-height: 1.28;
+            margin-bottom: 4px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <div class="top-header">
+            <div class="header-dark"></div>
+            <div class="header-orange"></div>
+
+            <img class="profile-photo" src="@Model.Görsel" alt="Profil Fotoğrafı" />
+
+            <div class="header-content">
+                <div class="name">
+                    @Model.Ad <span>@Model.Soyad</span>
+                </div>
+
+                <div class="role">Yazılım Geliştirici</div>
+
+                <div class="info-row">
+                    <div class="info-item">
+                        <span class="info-icon"><i class="fa-solid fa-cake-candles"></i></span>
+                        <span class="info-text">
+                            <strong>Doğum Tarihi</strong>
+                            06.06.1999
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon"><i class="fa-solid fa-phone"></i></span>
+                        <span class="info-text">
+                            <strong>Telefon</strong>
+                            @Model.Telefon
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon"><i class="fa-solid fa-envelope"></i></span>
+                        <span class="info-text">
+                            <strong>E-posta</strong>
+                            @Model.Mail
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon"><i class="fa-solid fa-location-dot"></i></span>
+                        <span class="info-text">
+                            <strong>Adres</strong>
+                            @Model.Adres
+                        </span>
+                    </div>
+                </div>
+
+                <div class="social-row">
+
+                    @if (sosyalMedya != null)
+                    {
+                        foreach (var s in sosyalMedya.Where(x => x.Durum == true))
+                        {
+                            <div class="social-card">
+
+                                <div class="social-top">
+                                    <i class="@s.ikon"></i>
+                                    <span>@s.Ad</span>
+                                </div>
+
+                                <div class="social-link">
+                                    @kullaniciAdiGetir(s.Link)
+                                </div>
+
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="left">
+
+                <div class="section">
+                    <div class="section-title">
+                        <span class="circle"><i class="fa-solid fa-code"></i></span>
+                        Yetenekler
+                    </div>
+                    <br />
+                    @if (yetenekler != null)
+                    {
+                        foreach (var x in yetenekler)
+                        {
+                            <div class="skill">
+                                <div class="skill-row">
+                                    <span>@x.Yetenek</span>
+                                    <span>@x.Oran%</span>
+                                </div>
+                                <div class="bar">
+                                    <div class="bar-fill" style="width:@(x.Oran)%;"></div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <div class="section">
+                    <div class="section-title">
+                        <span class="circle"><i class="fa-solid fa-graduation-cap"></i></span>
+                        Eğitim
+                    </div>
+                    <br />
+                    <div class="timeline">
+                        @if (egitimler != null)
+                        {
+                            foreach (var x in egitimler)
+                            {
+                                <div class="timeline-item">
+                                    <h3>@x.Baslik</h3>
+                                    <div class="sub">@x.AltBaslik1 - @x.AltBaslik2</div>
+                                    <div class="text">@x.Tarih</div>
+
+                                    @if (!string.IsNullOrEmpty(x.GNO) && x.GNO != "-")
+                                    {
+                                        <div class="text">GNO: @x.GNO</div>
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="right">
+
+                <div class="section">
+                    <div class="section-title">
+                        <span class="circle"><i class="fa-solid fa-user"></i></span>
+                        Hakkımda
+                    </div>
+                    <br />
+                    <div class="text">@Model.Aciklama</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">
+                        <span class="circle"><i class="fa-solid fa-briefcase"></i></span>
+                        Deneyimler
+                    </div>
+                    <br />
+                    <div class="timeline">
+                        @if (deneyimler != null)
+                        {
+                            foreach (var x in deneyimler)
+                            {
+                                <div class="exp-item">
+                                    <div class="head-line">
+                                        <div>
+                                            <h3>@x.Baslik</h3>
+                                            <div class="sub">@x.AltBaslik</div>
+                                        </div>
+                                        <div class="date">@x.Tarih</div>
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(x.Aciklama))
+                                    {
+                                        foreach (var madde in x.Aciklama.Split('|').Take(4))
+                                        {
+                                            if (!string.IsNullOrWhiteSpace(madde))
+                                            {
+                                                <div class="bullet">• @madde.Trim()</div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="page">
+
+        <div class="mini-header">
+            <div class="mini-dark"></div>
+            <div class="mini-orange"></div>
+            <div class="mini-title">@Model.Ad <span>@Model.Soyad</span></div>
+            <div class="mini-sub">Projeler • Sertifikalar</div>
+        </div>
+        <br />
+        <div class="second-content">
+
+            <div class="section">
+                <div class="section-title">
+                    <span class="circle"><i class="fa-solid fa-laptop-code"></i></span>
+                    Projelerim
+                </div>
+                <br />
+                @if (projeler != null)
+                {
+                    foreach (var x in projeler)
+                    {
+                        <div class="project">
+                            <div class="head-line">
+                                <div>
+                                    <h3>@x.Baslik</h3>
+                                    <div class="sub">@x.Teknolojiler</div>
+                                </div>
+                                <div class="date">@x.Tarih</div>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(x.Aciklama))
+                            {
+                                foreach (var madde in x.Aciklama.Split('|'))
+                                {
+                                    if (!string.IsNullOrWhiteSpace(madde))
+                                    {
+                                        <div class="bullet">• @madde.Trim()</div>
+                                    }
+                                }
+                            }
+
+                            @if (!string.IsNullOrEmpty(x.GitHubLink))
+                            {
+                                <div class="project-link">Github: @x.GitHubLink</div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(x.DemoLink))
+                            {
+                                <div class="project-link">Demo: @x.DemoLink</div>
+                            }
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    <span class="circle"><i class="fa-solid fa-award"></i></span>
+                    Sertifikalar
+                </div>
+                <br />
+                <div class="cert-grid">
+                    @if (sertifikalar != null)
+                    {
+                        foreach (var x in sertifikalar)
+                        {
+                            <div class="cert">• @x.Aciklama @(x.Tarih != null ? "(" + x.Tarih + ")" : "")</div>
+                        }
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
