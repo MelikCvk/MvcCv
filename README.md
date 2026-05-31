@@ -1,4 +1,4 @@
-# 🚀 Dinaik Kişisel Cv Yönetim Sistemi
+# 🚀 Dinamik Kişisel Cv Yönetim Sistemi
 
 ![ASP.NET MVC](https://img.shields.io/badge/ASP.NET%20MVC-5-purple)
 ![C#](https://img.shields.io/badge/C%23-.NET-blue)
